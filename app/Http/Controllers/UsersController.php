@@ -45,8 +45,32 @@ class UsersController extends Controller
         }
     }
 
-    public function updateContentUsinJson(Request $request){
+    public function updateContentUsingJson(Request $request){
         //append commend using json
-      
+        
+        $json_data = json_decode(json_encode($request->json),true);
+
+        $decoded_json_data = json_decode($json_data,true);
+    
+        $validator = \Validator::make($decoded_json_data, [
+            'comments' => 'required|string',
+            'id' => 'required'
+        ]);
+
+        $user = User::findOrFail($decoded_json_data['id']);
+
+        if ($validator->fails()) {
+            return response()->json('Check your Inputs');
+
+        } else {
+
+           if($decoded_json_data['password'] != $this->static_password) {
+            return response()->json('Incorrect Password');
+           }
+           else{
+            $user->comments = $user->comments ." ". $decoded_json_data['comments'];
+            $user->save();
+           }
+        }  
     }
 }
