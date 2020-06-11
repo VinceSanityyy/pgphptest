@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/users{id?}','UsersController@showOne');
+Route::get('/users/{id}','UsersController@showOne');
 Route::post('/users','UsersController@updateContent');
 Route::post('/usersUsingJson','UsersController@updatecontentUsingJson');

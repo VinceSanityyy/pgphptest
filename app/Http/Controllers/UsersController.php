@@ -11,13 +11,11 @@ class UsersController extends Controller
 
     public $static_password = '720DF6C2482218518FA20FDC52D4DED7ECC043AB';
 
-    public function showOne(Request $request){
+    public function showOne($id){
         //show one
-        $uid = User::findOrFail($request->id);
+        $user = User::findOrFail($id);
 
-        $res = User::where('id',1)->get();
-
-        return response()->json($res);
+        return view('index',compact('user'));
     }
 
     public function updateContent(Request $request){
