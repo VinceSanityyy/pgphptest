@@ -16,6 +16,9 @@
 // });
 
 
+
+//show user commend and picture
+
 Route::get('/users/{id}','UsersController@showOne');
 
 

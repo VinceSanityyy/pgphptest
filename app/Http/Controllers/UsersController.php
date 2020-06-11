@@ -14,13 +14,13 @@ class UsersController extends Controller
     public function showOne($id){
         //show one
         $user = User::findOrFail($id);
-        // dd($user);
+
         return view('index',compact('user'));
     }
 
     public function updateContent(Request $request){
 
-        //will append comments field
+        //will append comments field, used postman to test
         $validator = \Validator::make($request->all(), [
             'comments' => 'required|string',
             'id' => 'required|integer'
@@ -30,7 +30,6 @@ class UsersController extends Controller
 
         if ($validator->fails()) {
             return response()->json('Check your Inputs');
-
         } else {
 
            if($request->password != $this->static_password) {
@@ -44,7 +43,10 @@ class UsersController extends Controller
     }
 
     public function updateContentUsingJson(Request $request){
-        //append commend using json
+        /**
+         * append commend using json, used postman to test. 
+         * formdata body with json string
+         */
         
         $json_data = json_decode(json_encode($request->json),true);
 
@@ -73,7 +75,13 @@ class UsersController extends Controller
     }
 
     public function commandController($userId,$comments){
-
+        /**
+         *  if you want to use this controller you must type in the command 
+         * line "php artisan user:addcomment" with params $id and $comment
+         * 
+         * e.g: php artisan user:addcomment 1 my comment
+         */
+        
         $user = User::findOrFail($userId);
 
         if ($userId == "" || $comments == "") {
