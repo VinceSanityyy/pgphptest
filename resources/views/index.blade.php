@@ -12,7 +12,7 @@
 <div id="wrapper">
     <section id="main">
         <header>
-           <span class="avatar"><img src="images/users/{{$user->id}}.jpg" alt="" /></span>
+           <span class="avatar"><img src="{{asset('images/users/'.$user->id.'.jpg')}}" alt="" /></span>
           
             <h1>{{$user->name}}</h1>
             <h1>Username</h1>

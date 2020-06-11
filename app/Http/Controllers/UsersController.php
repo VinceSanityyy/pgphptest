@@ -14,7 +14,7 @@ class UsersController extends Controller
     public function showOne($id){
         //show one
         $user = User::findOrFail($id);
-
+        // dd($user);
         return view('index',compact('user'));
     }
 
@@ -71,4 +71,19 @@ class UsersController extends Controller
            }
         }  
     }
+
+    public function commandController($userId,$comments){
+
+        $user = User::findOrFail($userId);
+
+        if ($userId == "" || $comments == "") {
+            echo 'Check your inputs';
+        } else {
+
+        $user->comments = $user->comments ." ". implode(" ",$comments);
+        $user->save();
+        echo 'Saved';
+        }
+    }
+ 
 }
